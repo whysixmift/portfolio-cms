@@ -1,0 +1,24 @@
+# ==========================================
+# PORTFOLIO CMS - DEPLOYMENT SCRIPT
+# ==========================================
+
+# 1. Create your production environment file:
+# Run: nano .env
+# And paste inside:
+# DATABASE_URL="file:./prod.db"
+# AUTH_SECRET="generate-a-long-random-string-here"
+
+# 2. Install standard dependencies:
+npm install --omit=dev
+
+# 3. Push Database Schema to create/sync prod.db:
+npx prisma db push
+
+# 4. Generate Prisma Client for Types:
+npx prisma generate
+
+# 5. Compile the Next.js application:
+npm run build
+
+# 6. Start the server (Forces port 3000):
+PORT=3000 npm start

@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ----------------------------------------------------
+// Public Content Models
+// ----------------------------------------------------
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String?
+  link        String?
+  createdAt   DateTime @default(now())
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  content   String   // Markdown content
+  createdAt DateTime @default(now())
+}
+
+// ----------------------------------------------------
+// Settings & Administration
+// ----------------------------------------------------
+
+model SiteContent {
+  id              String   @id @default(cuid())
+  heroTitle       String
+  heroDescription String
+  // A singleton technique is often used here, returning the first row.
+  updatedAt       DateTime @updatedAt
+}
+
+// Retaining User model for Admin Access / NextAuth
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // Hashed for credentials provider
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
