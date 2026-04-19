@@ -2,13 +2,6 @@ import { PrismaClient } from "@prisma/client";
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
-export const db = globalForPrisma.prisma || new PrismaClient({
-  // @ts-ignore - Bypass strict typescript constraint to supply valid runtime property
-  datasources: {
-    db: {
-      url: process.env.DATABASE_URL || "file:./prod.db"
-    }
-  }
-});
+export const db = globalForPrisma.prisma || new PrismaClient();
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;
