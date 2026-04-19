@@ -24,7 +24,7 @@ export default async function BlogIndexPage() {
         </div>
       ) : (
         <div className="flex flex-col border border-[#262626] divide-y divide-[#262626] bg-[#000000]">
-          {posts.map((post) => (
+          {posts.map((post: any) => (
             <Link 
               key={post.id} 
               href={`/blog/${post.slug}`}
