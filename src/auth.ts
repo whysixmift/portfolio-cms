@@ -2,8 +2,10 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
+import { authConfig } from "./auth.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  ...authConfig,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -26,7 +28,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         );
 
         if (passwordsMatch) {
-          // Exclude password from returned user object
           const { password, ...userWithoutPassword } = user;
           return userWithoutPassword;
         }
@@ -35,22 +36,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  pages: {
-    signIn: "/login",
-  },
-  session: { strategy: "jwt" },
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (token?.id) {
-        session.user.id = token.id as string;
-      }
-      return session;
-    },
-  },
 });

@@ -1,7 +1,8 @@
-import { auth } from "@/auth";
+import NextAuth from "next-auth";
+import { authConfig } from "./auth.config";
 import { NextResponse } from "next/server";
 
-export default auth((req) => {
+export default NextAuth(authConfig).auth((req) => {
   const isLoggedIn = !!req.auth;
   const isAuthPage = req.nextUrl.pathname.startsWith("/login");
   const isAdminRoute = req.nextUrl.pathname.startsWith("/admin");
@@ -22,7 +23,6 @@ export default auth((req) => {
   return null;
 });
 
-// Optionally, don't invoke Middleware on some paths
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
