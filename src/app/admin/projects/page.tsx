@@ -28,7 +28,7 @@ export default async function ProjectsPage() {
             [ DATA_EMPTY ]
           </div>
         ) : (
-          projects.map((proj, idx) => (
+          projects.map((proj: any, idx: number) => (
             <div key={proj.id} className={`p-6 flex items-center justify-between ${idx !== projects.length -1 ? "border-b border-[#262626]" : ""} hover:bg-[#0A0A0A] transition-colors`}>
               <div>
                 <h3 className="text-lg font-bold text-white mb-1">{proj.title}</h3>

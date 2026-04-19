@@ -25,7 +25,7 @@ export default async function ProjectsPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-[#262626] bg-[#262626]">
           {/* We use bg-[#262626] and gap-[1px] on the wrapper to create pure 1px grid lines between cards */}
-          {projects.map(project => (
+          {projects.map((project: any) => (
             <ProjectCard 
               key={project.id}
               id={project.id}

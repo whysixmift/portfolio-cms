@@ -28,7 +28,7 @@ export default async function BlogAdminPage() {
             [ LOGS_EMPTY ]
           </div>
         ) : (
-          posts.map((post, idx) => (
+          posts.map((post: any, idx: number) => (
             <div key={post.id} className={`p-6 flex items-center justify-between ${idx !== posts.length -1 ? "border-b border-[#262626]" : ""} hover:bg-[#0A0A0A] transition-colors`}>
               <div>
                 <h3 className="text-lg font-bold text-white mb-1">{post.title}</h3>
